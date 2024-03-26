@@ -8,17 +8,44 @@ import com.javaex.vo.UserVo;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserDao userDao;
 	
-	public UserVo exeLogin(UserVo userVo) {
-		System.out.println("UserService.exeLogin()");
+	//회원가입
+	public int exeJoin(UserVo userVo) {
+		System.out.println("UserService.exeJoin()");
 		
-		UserVo authUser = userDao.userSelectByIdPw(userVo);
+		int count = userDao.userJoin(userVo);
 		
-		return authUser;
+		return count;
 	}
 	
+	
+	//로그인
+	public UserVo exeLogin(UserVo userVo) {
+		System.out.println("UserService.exeLogin()");
+
+		UserVo authUser = userDao.userSelectByIdPw(userVo);
+
+		return authUser;
+	}
+
+	// 회원폼(1명 데이터 가져오기)
+	public UserVo exeModifyForm(int no) {
+		System.out.println("UserService.exeModifyForm()");
+
+		UserVo userVo = userDao.userSelectOneByNo(no);
+		return userVo;
+	}
+
+	// 회원정보 수정
+	public int exeModify(UserVo userVo) {
+		System.out.println("UserService.exeModify()");
+
+		int count = userDao.userModify(userVo);
+		System.out.println(count);
+		return count;
+	}
 
 }
